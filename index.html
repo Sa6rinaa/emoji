@@ -1,212 +1,169 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎭 Emoji Code Mood - Application</title>
-  
-  <!-- Typographie personnalisée (exemple : Poppins) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Thème personnalisé -->
-  <style>
-    :root {
-      --primary-color: #004aad;   /* Couleur principale école */
-      --secondary-color: #ffcc00; /* Accent */
-      --bg-gradient: linear-gradient(135deg, #004aad, #0077ff);
-      --text-color: #222;
-      --font-main: "Poppins", sans-serif;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--font-main);
-      background: var(--bg-gradient);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    .main-nav {
-      background: var(--primary-color);
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    .nav-link {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      transition: background 0.3s;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      background: var(--secondary-color);
-      color: #000;
-    }
-
-    header.header {
-      text-align: center;
-      color: white;
-      position: relative;
-    }
-
-    header .logo {
-      max-height: 60px;
-      margin-bottom: 1rem;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .submit-btn {
-      background: var(--primary-color);
-      color: white;
-      padding: 1rem 1.5rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s;
-    }
-
-    .submit-btn:hover {
-      background: var(--secondary-color);
-      color: #000;
-      transform: scale(1.05);
-    }
-
-    /* 📱 Optimisation mobile */
-    @media (max-width: 768px) {
-      .main-nav {
-        flex-wrap: wrap;
-      }
-
-      .nav-link {
-        flex: 1 1 100%;
-        text-align: center;
-        font-size: 1.2rem;
-      }
-
-      .emoji-btn {
-        padding: 1rem;
-        font-size: 1.8rem; /* zones tactiles + grandes */
-      }
-
-      .submit-btn {
-        width: 100%; /* navigation au pouce */
-      }
-    }
-
-    /* ✨ Animations avancées */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.8s forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .loading-animation::after {
-      content: "⏳";
-      display: inline-block;
-      margin-left: 8px;
-      animation: spin 1s infinite linear;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .feedback {
-      transition: transform 0.2s;
-    }
-    .feedback:active {
-      transform: scale(0.9);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Emoji Code Mood - Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Ajout du CDN jsDelivr pour Supabase v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
-<body class="page-content">
-  <!-- Logo institution -->
-  <header class="header">
-    <img src="logo-ecole.png" alt="Logo de l'école" class="logo">
-    <h1 class="page-title fade-in">🎭 Emoji Code Mood</h1>
-    <p class="page-subtitle fade-in">Exprime ton humeur et découvre l'ambiance de la classe en temps réel !</p>
-  </header>
-
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <a class="nav-link active" href="index.html">🎭 Application</a>
-    <a class="nav-link" href="dashboard.html">🎛 Tableau de bord</a>
-    <a class="nav-link" href="docs/formation/">📚 Formation</a>
-    <a class="nav-link" href="checklist.html">📋 Progression</a>
-  </nav>
-
-  <main class="container" style="max-width:1200px; margin:2rem auto; display:flex; flex-wrap:wrap; gap:2rem;">
-    <!-- Formulaire -->
-    <section class="form-section card fade-in" style="flex:1 1 380px;">
-      <h2>📝 Code ton humeur</h2>
-      <form id="moodForm">
-        <div class="form-group">
-          <label for="studentName">Ton prénom :</label>
-          <input type="text" id="studentName" required placeholder="Ex: Alex" maxlength="30">
+<body class="page-content gradient-bg">
+    <nav class="main-nav">
+        <a class="nav-link active" href="index.html" aria-current="page">🎭 Application</a>
+        <a class="nav-link" href="dashboard.html">🎛 Tableau de bord</a>
+        <a class="nav-link" href="docs/formation/">📚 Formation</a>
+        <a class="nav-link" href="checklist.html">📋 Progression</a>
+    </nav>
+    <div class="container" style="max-width:1200px; margin:0 auto;">
+        <header class="header" style="padding-top:1rem;">
+            <h1 class="page-title animate-bounce" style="margin-bottom:.25rem;">🎭 Emoji Code Mood</h1>
+            <p class="page-subtitle" style="margin-top:0;">Exprime ton humeur avec tes préférences et découvre l'ambiance de la classe en temps réel !</p>
+            <div class="mode-indicator" id="modeIndicator">
+                <span id="modeIcon">⚡</span>
+                <span id="modeText">Initialisation...</span>
+            </div>
+            <div class="stats" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalParticipants">0</div>
+                    <div class="stat-label">Participants</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="moodVariety">0</div>
+                    <div class="stat-label">Humeurs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="sessionTime">0</div>
+                    <div class="stat-label">Minutes</div>
+                </div>
+            </div>
+            <div class="mood-visualization" id="moodVisualization"></div>
+        </header>
+        <div class="main-content" style="display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+            <div class="form-section card" style="flex:1 1 380px;">
+                <h2 style="margin-top:0;">📝 Code ton humeur</h2>
+                <form id="moodForm">
+                    <div class="form-group">
+                        <label for="studentName">Ton prénom :</label>
+                        <input type="text" id="studentName" required placeholder="Ex: Alex" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label>Choisis ton emoji humeur :</label>
+                        <div class="emoji-selector">
+                            <!-- Jeu d'emojis complet (repris de app.html) -->
+                            <button type="button" class="emoji-btn" data-emoji="🔥" title="Feu - Motivé à fond">🔥</button>
+                            <button type="button" class="emoji-btn" data-emoji="💪" title="Muscle - Prêt au combat">💪</button>
+                            <button type="button" class="emoji-btn" data-emoji="🚀" title="Fusée - Décollage immédiat">🚀</button>
+                            <button type="button" class="emoji-btn" data-emoji="⚡" title="Éclair - Énergie électrique">⚡</button>
+                            <button type="button" class="emoji-btn" data-emoji="🌟" title="Étoile - Brillant aujourd'hui">🌟</button>
+                            <button type="button" class="emoji-btn" data-emoji="✨" title="Étincelles - Magique">✨</button>
+                            <button type="button" class="emoji-btn" data-emoji="😴" title="Endormi - Mode sieste">😴</button>
+                            <button type="button" class="emoji-btn" data-emoji="🥱" title="Bâillement - Fatigue">🥱</button>
+                            <button type="button" class="emoji-btn" data-emoji="☕" title="Café - Besoin de caféine">☕</button>
+                            <button type="button" class="emoji-btn" data-emoji="🛌" title="Lit - Envie de dormir">🛌</button>
+                            <button type="button" class="emoji-btn" data-emoji="💤" title="ZZZ - Assoupi">💤</button>
+                            <button type="button" class="emoji-btn" data-emoji="🧟" title="Zombie - Mode survie">🧟</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤯" title="Explosion - Cerveau overload">🤯</button>
+                            <button type="button" class="emoji-btn" data-emoji="😰" title="Sueur - Stress intensif">😰</button>
+                            <button type="button" class="emoji-btn" data-emoji="🥵" title="Chaud - Pression maximum">🥵</button>
+                            <button type="button" class="emoji-btn" data-emoji="�" title="Goutte sueur - Inquiet">�</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤪" title="Fou - Complètement perché">🤪</button>
+                            <button type="button" class="emoji-btn" data-emoji="�" title="Cool - Maître de l'univers">�</button>
+                            <button type="button" class="emoji-btn" data-emoji="�" title="Smirk - Je sais tout">�</button>
+                            <button type="button" class="emoji-btn" data-emoji="😌" title="Zen - Serein">😌</button>
+                            <button type="button" class="emoji-btn" data-emoji="😊" title="Sourire - Bonne humeur">😊</button>
+                            <button type="button" class="emoji-btn" data-emoji="😁" title="Grand sourire - Joie">😁</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤔" title="Réflexion - Cogite">🤔</button>
+                            <button type="button" class="emoji-btn" data-emoji="🧐" title="Analyse poussée">🧐</button>
+                            <button type="button" class="emoji-btn" data-emoji="👀" title="Observation">👀</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤨" title="Sceptique">🤨</button>
+                            <button type="button" class="emoji-btn" data-emoji="😕" title="Déçu">😕</button>
+                            <button type="button" class="emoji-btn" data-emoji="😅" title="Rire nerveux">😅</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤣" title="Rire aux éclats">🤣</button>
+                            <button type="button" class="emoji-btn" data-emoji="😄" title="Sourire éclatant">😄</button>
+                            <button type="button" class="emoji-btn" data-emoji="🥳" title="Fête">🥳</button>
+                            <button type="button" class="emoji-btn" data-emoji="🎉" title="Confettis">🎉</button>
+                            <button type="button" class="emoji-btn" data-emoji="💻" title="Laptop - Dev">💻</button>
+                            <button type="button" class="emoji-btn" data-emoji="🖥️" title="Desktop">🖥️</button>
+                            <button type="button" class="emoji-btn" data-emoji="⌨️" title="Clavier">⌨️</button>
+                            <button type="button" class="emoji-btn" data-emoji="🤖" title="Robot - IA">🤖</button>
+                            <button type="button" class="emoji-btn" data-emoji="👾" title="Alien - Gaming">👾</button>
+                            <button type="button" class="emoji-btn" data-emoji="🎯" title="Objectif">🎯</button>
+                            <button type="button" class="emoji-btn" data-emoji="🎭" title="Masques">🎭</button>
+                            <button type="button" class="emoji-btn" data-emoji="🎲" title="Hasard">🎲</button>
+                            <button type="button" class="emoji-btn" data-emoji="🌈" title="Arc-en-ciel">🌈</button>
+                            <button type="button" class="emoji-btn" data-emoji="🍕" title="Pizza">🍕</button>
+                            <button type="button" class="emoji-btn" data-emoji="🎸" title="Guitare">🎸</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="favoriteLanguage">Mon langage préféré :</label>
+                        <select id="favoriteLanguage" required>
+                            <option value="">Choisis ton langage préféré</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C#</option>
+                            <option value="php">PHP</option>
+                            <option value="cpp">C++</option>
+                            <option value="rust">Rust</option>
+                            <option value="go">Go</option>
+                            <option value="kotlin">Kotlin</option>
+                            <option value="swift">Swift</option>
+                            <option value="ruby">Ruby</option>
+                        </select>
+                        <input type="hidden" id="language" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherPreference">Ma préférence tech :</label>
+                        <select id="otherPreference" required>
+                            <option value="">Choisis ta préférence</option>
+                            <option value="jeux-video">Jeux vidéo</option>
+                            <option value="streaming">Streaming</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="twitch">Twitch</option>
+                            <option value="design">Design graphique</option>
+                            <option value="musique">Écouter de la musique</option>
+                            <option value="intelligence-artificielle">Intelligence Artificielle</option>
+                            <option value="apps-mobiles">Apps mobiles</option>
+                            <option value="sport">Sport</option>
+                            <option value="netflix">Netflix</option>
+                            <option value="lecture">Lecture</option>
+                            <option value="cuisine">Cuisine</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Commentaire (optionnel) :</label>
+                        <input type="text" id="comment" maxlength="100">
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Envoyer mon code humeur ! 🚀</button>
+                </form>
+                <p style="font-size:.75rem;color:#666; margin-top:1rem;">Raccourci enseignant : Ctrl + Shift + A</p>
+            </div>
+            <div class="display-section" style="flex:1 1 460px; min-width:340px;">
+                <h2 style="margin-top:0;">💻 Ambiance de la classe</h2>
+                <div class="mood-list social-feed" id="moodList">
+                    <div class="loading">
+                        <p>🤖 En attente des premiers codes humeur...</p>
+                        <p style="font-size: 0.9em; margin-top: 10px; color: #666;">Partage ton humeur pour commencer !</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-          <label>Choisis ton emoji humeur :</label>
-          <div class="emoji-selector">
-            <button type="button" class="emoji-btn feedback" data-emoji="🔥">🔥</button>
-            <button type="button" class="emoji-btn feedback" data-emoji="💪">💪</button>
-            <button type="button" class="emoji-btn feedback" data-emoji="🚀">🚀</button>
-            <button type="button" class="emoji-btn feedback" data-emoji="😴">😴</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="favoriteLanguage">Mon langage préféré :</label>
-          <select id="favoriteLanguage" required>
-            <option value="">Choisis ton langage préféré</option>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="java">Java</option>
-          </select>
-        </div>
-
-        <button type="submit" class="submit-btn feedback">Envoyer mon humeur 🚀</button>
-      </form>
-    </section>
-
-    <!-- Affichage -->
-    <section class="display-section card fade-in" style="flex:1 1 460px; min-width:340px;">
-      <h2>💻 Ambiance de la classe</h2>
-      <div class="mood-list social-feed" id="moodList">
-        <div class="loading loading-animation">
-          <p>🤖 En attente des premiers codes humeur...</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer style="text-align:center; color:white; padding:1rem; margin-top:2rem;">
-    © <span id="year"></span> Emoji Code Mood • Pédagogie & Temps Réel
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+    </div>
+    <footer class="dashboard-footer" style="margin-top:3rem;">© <span id="year"></span> Emoji Code Mood • Pédagogie & Temps Réel</footer>
+    <script src="private-config.js"></script>
+    <script type="module" src="main.js?v=2.1.1"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const fav = document.getElementById('favoriteLanguage');
+        const hiddenLang = document.getElementById('language');
+        fav.addEventListener('change', () => hiddenLang.value = fav.value);
+    </script>
 </body>
 </html>
